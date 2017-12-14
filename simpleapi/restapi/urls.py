@@ -3,5 +3,5 @@ from restapi import views
 
 urlpatterns = [
     url(r'^api/v1/books/$', views.book_list),
-    url(r'^api/v1/books/(?P<pk>[0-9]+)/$', views.book_detail)
+    url(r'^api/v1/book/(?P<pk>[0-9]+)/$', views.book_detail)
 ]
