@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from rest_framework.decorators import api_view
 from rest_framework import status
 from restapi.models import Book
 from restapi.serializer import BookSerializer
@@ -14,6 +15,7 @@ class JSONResponse(HttpResponse):
         super(JSONResponse, self).__init__(content, **kwargs)
 
 @csrf_exempt
+@api_view(['GET', 'POST'])
 def book_list(request):
     if request.method == 'GET':
         books = Book.objects.all()
@@ -31,6 +33,7 @@ def book_list(request):
         return JSONResponse(book_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
+@api_view(['GET', 'PUT', 'DELETE'])
 def book_detail(request, pk):
     try:
         book = Book.objects.get(pk=pk)
