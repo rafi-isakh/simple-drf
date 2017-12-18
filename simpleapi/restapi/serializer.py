@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from restapi.models import Book
+from restapi.models import BookCategory
 
 # Using serializer
 
@@ -23,11 +24,27 @@ from restapi.models import Book
 #         return instance
 
 # Using model serializer
+class BookCategorySerializer(serializers.HyperlinkedModelSerializer):
+    books = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='book-detail'
+    )
+    class Meta:
+        model = BookCategory
+        fields = (
+            'url',
+            'pk',
+            'name',
+            'books'
+        )
+
 class BookSerializer(serializers.ModelSerializer):
+    book_category = serializers.SlugRelatedField(queryset=BookCategory.objects.all(), slug_field='name')
     class Meta:
         model = Book
         fields = (
-            'id',
+            'url',
             'title',
             'publish_date',
             'book_category',
