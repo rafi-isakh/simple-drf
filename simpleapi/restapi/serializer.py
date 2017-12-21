@@ -33,10 +33,10 @@ class BookCategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = BookCategory
         fields = (
-            'url',
-            'pk',
+            'id',
             'name',
-            'books'
+            'books',
+            'url',
         )
 
 class BookSerializer(serializers.ModelSerializer):
@@ -44,9 +44,9 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = (
-            'url',
             'title',
             'publish_date',
             'book_category',
-            'read'
+            'read',
+            'url',
         )

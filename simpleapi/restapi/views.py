@@ -77,7 +77,12 @@ from restapi.serializer import BookSerializer, BookCategorySerializer
 class BookCategoryList(generics.ListCreateAPIView):
     queryset = BookCategory.objects.all()
     serializer_class = BookCategorySerializer
-    name = 'gamecategory-list'
+    name = 'bookcategory-list'
+
+class BookCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = BookCategory.objects.all()
+    serializer_class = BookCategorySerializer
+    name = 'bookcategory-detail'
 
 class BookList(generics.ListCreateAPIView):
     queryset = Book.objects.all()
@@ -88,3 +93,11 @@ class BookDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     name = 'book-detail'
+
+class ApiRoot(generics.GenericAPIView):
+    name = 'api-root'
+    def get(self, request, *args, **kwargs):
+        return Response({
+        'book-categories': reverse(BookCategoryList.name, request=request),
+        'books': reverse(BookList.name, request=request)
+    })
