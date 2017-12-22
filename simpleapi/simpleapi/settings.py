@@ -41,6 +41,11 @@ INSTALLED_APPS = [
     'restapi.apps.RestapiConfig'
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'restapi.pagination.LimitOffsetPaginationWithMaxLimit',
+    'PAGE_SIZE': 5
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
